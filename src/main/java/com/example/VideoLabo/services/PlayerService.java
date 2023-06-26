@@ -9,4 +9,8 @@ public interface PlayerService {
     Player playerByID(Long id);
 
     Player savePlayer (Player player);
+
+    Player getPlayerByUserNameAndPassword(String username, String password);
+    Player getPlayerByEmailAndPassword(String email, String password);
+
 }

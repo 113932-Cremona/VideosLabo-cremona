@@ -4,6 +4,7 @@ import com.example.VideoLabo.entities.PlayerEntity;
 import com.example.VideoLabo.models.Player;
 import com.example.VideoLabo.repositories.jpa.PlayerJpaRepository;
 import com.example.VideoLabo.services.PlayerService;
+import jakarta.persistence.EntityNotFoundException;
 import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,31 @@ public class PlayerServiceImpl implements PlayerService {
             return modelMapper.map(playerEntitySaved, Player.class);
         }
         return null;
+    }
+
+     @Override
+     public  Player getPlayerByUserNameAndPassword(String username, String password){
+     Optional<PlayerEntity> playerEntityOptional = playerJpaRepository.findByUserNameAndPassword(username, password);
+     if(playerEntityOptional.isPresent()){
+         return modelMapper.map(playerEntityOptional.get(), Player.class);
+
+     }
+     else {
+         throw new EntityNotFoundException("user name or password invalid");
+     }
+
+     }
+
+    @Override
+    public  Player getPlayerByEmailAndPassword(String email, String password){
+        Optional<PlayerEntity> playerEntityOptional = playerJpaRepository.findByEmailAndPassword(email, password);
+        if(playerEntityOptional.isPresent()){
+            return modelMapper.map(playerEntityOptional.get(), Player.class);
+
+        }
+        else {
+            throw new EntityNotFoundException("user name or password invalid");
+        }
+
     }
 }
