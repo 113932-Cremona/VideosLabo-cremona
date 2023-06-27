@@ -1,8 +1,10 @@
 package com.example.VideoLabo.services.impl;
 
 import com.example.VideoLabo.entities.PlayerEntity;
+import com.example.VideoLabo.models.Match;
 import com.example.VideoLabo.models.Player;
 import com.example.VideoLabo.repositories.jpa.PlayerJpaRepository;
+import com.example.VideoLabo.services.MatchService;
 import com.example.VideoLabo.services.PlayerService;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.catalina.mapper.Mapper;
@@ -11,12 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
 
+    @Autowired
+    private MatchService matchService;
     @Autowired
     private PlayerJpaRepository playerJpaRepository;
     @Autowired
@@ -65,5 +70,10 @@ public class PlayerServiceImpl implements PlayerService {
             throw new EntityNotFoundException("user name or password invalid");
         }
 
+    }
+
+    @Override
+    public List<Match> getPlayersMatches(Long id){
+        return matchService.getMatchsByPlayer(id);
     }
 }

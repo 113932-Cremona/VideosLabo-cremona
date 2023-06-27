@@ -9,4 +9,5 @@ public interface LoginService {
 
     Player login(Credential credential);
 
+    //Player updateLastLogin(Player player);
 }

@@ -26,7 +26,7 @@ public class LoginController {
     private LoginService loginService;
 
     @Operation(
-            summary = "lagin a player in the plataform",
+            summary = "login a player in the plataform",
             description = "Return the player logged in if the credentials are corrrect"
     )
     @ApiResponses(

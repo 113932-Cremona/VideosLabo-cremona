@@ -1,7 +1,10 @@
 package com.example.VideoLabo.services;
 
+import com.example.VideoLabo.models.Match;
 import com.example.VideoLabo.models.Player;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface PlayerService {
@@ -13,4 +16,5 @@ public interface PlayerService {
     Player getPlayerByUserNameAndPassword(String username, String password);
     Player getPlayerByEmailAndPassword(String email, String password);
 
+    List<Match> getPlayersMatches(Long id);
 }
