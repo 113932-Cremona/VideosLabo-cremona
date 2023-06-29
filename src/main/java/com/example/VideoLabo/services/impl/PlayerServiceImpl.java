@@ -21,8 +21,6 @@ public class PlayerServiceImpl implements PlayerService {
 
 
     @Autowired
-    private MatchService matchService;
-    @Autowired
     private PlayerJpaRepository playerJpaRepository;
     @Autowired
     private ModelMapper modelMapper;
@@ -72,8 +70,5 @@ public class PlayerServiceImpl implements PlayerService {
 
     }
 
-    @Override
-    public List<Match> getPlayersMatches(Long id){
-        return matchService.getMatchsByPlayer(id);
-    }
+
 }

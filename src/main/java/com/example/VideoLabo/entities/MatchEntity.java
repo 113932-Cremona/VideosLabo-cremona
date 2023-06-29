@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "matches")
+@Inheritance (strategy = InheritanceType.JOINED)
 public class MatchEntity {
 
 

@@ -16,5 +16,5 @@ public interface PlayerService {
     Player getPlayerByUserNameAndPassword(String username, String password);
     Player getPlayerByEmailAndPassword(String email, String password);
 
-    List<Match> getPlayersMatches(Long id);
+
 }
