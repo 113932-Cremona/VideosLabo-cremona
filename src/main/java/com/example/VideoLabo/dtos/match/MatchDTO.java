@@ -13,5 +13,5 @@ public class MatchDTO {
     @NotNull
     private Long game;
     @NotNull
-    private Long Player;
+    private Long player;
 }
