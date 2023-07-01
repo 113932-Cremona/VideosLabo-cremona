@@ -1,19 +1,15 @@
 package com.example.VideoLabo.services.impl;
 
+import com.example.VideoLabo.dtos.Play.PlayRequest;
 import com.example.VideoLabo.dtos.match.MatchDTO;
 import com.example.VideoLabo.entities.MatchEntity;
-import com.example.VideoLabo.models.Game;
-import com.example.VideoLabo.models.Match;
-import com.example.VideoLabo.models.MatchStatus;
-import com.example.VideoLabo.models.Player;
+import com.example.VideoLabo.models.*;
 import com.example.VideoLabo.models.rps.MatchRps;
 import com.example.VideoLabo.repositories.jpa.MatchEntityFactory;
 import com.example.VideoLabo.repositories.jpa.MatchJpaRepository;
-import com.example.VideoLabo.services.GameService;
-import com.example.VideoLabo.services.MatchFactory;
-import com.example.VideoLabo.services.MatchService;
-import com.example.VideoLabo.services.PlayerService;
+import com.example.VideoLabo.services.*;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +33,8 @@ public class MatchServiceImpl implements MatchService {
 
     @Autowired
     private GameService gameService;
+    @Autowired
+    private PlayStrategyFactory playStrategyFactory;
 
 
     @Override
@@ -82,6 +80,22 @@ public class MatchServiceImpl implements MatchService {
         if (matchEntity != null){
             Match match = modelMapper.map(matchEntity, MatchFactory.getTypeOfMatch(matchEntity.getGame().getCode()));
             return match;
+        }
+        else {
+            throw new EntityNotFoundException();
+        }
+    }
+
+    @Transactional
+    @Override
+    public Play play(Long matchId, PlayRequest playRequest){
+
+        Match match = this.getMatchById(matchId);
+
+        if (match != null){
+            Play play = PlayFactory.getPlayInstance(playRequest,match.getGame().getCode());
+            PlayMatch playMatch = playStrategyFactory.getPlayStrategy(match.getGame().getCode());
+            return playMatch.play(play,match);
         }
         else {
             throw new EntityNotFoundException();

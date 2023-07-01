@@ -16,6 +16,8 @@ import java.util.List;
 public class MatchRpsEntity extends MatchEntity{
     private Long id;
     private Integer numberOfPlays;
+
+    @Column(name = "remainder_plays")//----------------------
     private Integer remainderPlays;
     private Integer player1Score;
     private Integer player2Score;

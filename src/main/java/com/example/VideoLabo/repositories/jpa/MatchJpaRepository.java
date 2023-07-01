@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface MatchJpaRepository extends JpaRepository<MatchEntity,Long> {
 
 
-    @Query( value = "SELECT m FROM MatchEntity m WHERE m.player.id = :playerId")
-    Optional<List<MatchEntity>> getAllByPlayerId(Long playerId);
+    @Query("SELECT m FROM MatchEntity m WHERE m.player1.id = :playerId")//------------
+    Optional<List<MatchEntity>> getAllByPlayerId(Long playerId);//_------------------------
 }
